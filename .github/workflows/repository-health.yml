@@ -19,27 +19,27 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
         with:
           persist-credentials: false
-      - uses: SalmonPlays/oss-signal@1bb4418e14be225b5f5b628986ea464241caf7f1 # v0.10.0
+      - uses: SalmonPlays/oss-signal@bb6a05b0bdac4596d926f8b89b09a27403a01607 # v0.10.0
         id: oss-signal
         with:
           fail-under: "90"
           output: oss-signal-report.md
           summary: "true"
       - run: test "${{ steps.oss-signal.outputs.score }}" -ge 90
-      - uses: SalmonPlays/oss-signal@1bb4418e14be225b5f5b628986ea464241caf7f1 # v0.10.0
+      - uses: SalmonPlays/oss-signal@bb6a05b0bdac4596d926f8b89b09a27403a01607 # v0.10.0
         with:
           format: sarif
           output: oss-signal.sarif
           summary: "false"
-      - uses: SalmonPlays/oss-signal@1bb4418e14be225b5f5b628986ea464241caf7f1 # v0.10.0
+      - uses: SalmonPlays/oss-signal@bb6a05b0bdac4596d926f8b89b09a27403a01607 # v0.10.0
         with:
           format: adoption
           output: oss-signal-adoption-pack.md
           summary: "false"
-      - uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4
+      - uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
         if: github.event_name != 'pull_request'
         with:
           sarif_file: oss-signal.sarif
@@ -49,7 +49,7 @@ jobs:
             oss-signal-report.md \
             oss-signal-adoption-pack.md \
             oss-signal.sarif > oss-signal-artifact-sha256.txt
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: oss-signal-report
           path: |
